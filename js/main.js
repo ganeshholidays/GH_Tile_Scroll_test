@@ -199,82 +199,34 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// === MOBILE AUTO-SCROLL CAROUSEL (Infinite Loop) ===
-(function() {
-    if (window.innerWidth > 768) return; // Only on mobile
+// === MOBILE SWIPER CAROUSELS ===
+if (window.innerWidth <= 768) {
+    const swiperConfig = {
+        slidesPerView: 'auto',
+        spaceBetween: 12,
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: true,
+            pauseOnMouseEnter: true,
+        },
+        touchEventsTarget: 'wrapper',
+        touchRatio: 1,
+        threshold: 20,
+    };
 
-    const carousels = document.querySelectorAll('.services-grid, .packages-grid, .whyus-grid, .gallery-grid, .reviews-grid');
+    // Services carousel
+    new Swiper('.services-swiper', { ...swiperConfig });
 
-    carousels.forEach(carousel => {
-        let isPaused = false;
-        let resumeTimeout;
-        const items = carousel.querySelectorAll('.service-card, .package-card, .whyus-item, .gallery-item, .review-card');
-        if (items.length === 0) return;
+    // Packages carousel
+    new Swiper('.packages-swiper', { ...swiperConfig });
 
-        // Clone all items and append to create infinite illusion
-        items.forEach(item => {
-            const clone = item.cloneNode(true);
-            clone.setAttribute('aria-hidden', 'true');
-            carousel.appendChild(clone);
-        });
+    // Why Us carousel
+    new Swiper('.whyus-swiper', { ...swiperConfig });
 
-        const itemWidth = items[0].offsetWidth + 12; // width + gap
-        const totalOriginalWidth = itemWidth * items.length;
+    // Gallery carousel
+    new Swiper('.gallery-swiper', { ...swiperConfig });
 
-        function doScroll() {
-            if (isPaused) return;
-            carousel.scrollBy({ left: itemWidth, behavior: 'smooth' });
-
-            // When we've scrolled past all original items, jump back silently
-            setTimeout(() => {
-                if (carousel.scrollLeft >= totalOriginalWidth) {
-                    carousel.style.scrollBehavior = 'auto';
-                    carousel.scrollLeft = carousel.scrollLeft - totalOriginalWidth;
-                    carousel.style.scrollBehavior = '';
-                }
-            }, 500);
-        }
-
-        // Auto-scroll every 2 seconds
-        let scrollInterval = setInterval(doScroll, 2000);
-
-        // Pause on tap (click)
-        carousel.addEventListener('click', () => {
-            isPaused = true;
-            clearTimeout(resumeTimeout);
-            resumeTimeout = setTimeout(() => { isPaused = false; }, 6000);
-        });
-
-        // Pause on manual horizontal scroll (touch drag)
-        let touchStartX = 0;
-        let touchStartY = 0;
-        carousel.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        });
-
-        carousel.addEventListener('touchmove', (e) => {
-            const touchDiffX = Math.abs(e.touches[0].clientX - touchStartX);
-            const touchDiffY = Math.abs(e.touches[0].clientY - touchStartY);
-            // Only pause if swiping MORE horizontally than vertically (intentional swipe)
-            if (touchDiffX > 30 && touchDiffX > touchDiffY * 1.5) {
-                isPaused = true;
-                clearTimeout(resumeTimeout);
-                resumeTimeout = setTimeout(() => { isPaused = false; }, 6000);
-            }
-        });
-
-        // Resume when section scrolls into view, pause when out
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    isPaused = false;
-                } else {
-                    isPaused = true;
-                }
-            });
-        }, { threshold: 0.3 });
-
-        observer.observe(carousel);
-    });
-})();
+    // Reviews carousel
+    new Swiper('.reviews-swiper', { ...swiperConfig });
+}
