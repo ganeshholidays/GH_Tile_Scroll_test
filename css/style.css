@@ -1009,71 +1009,40 @@ img {
         grid-template-columns: 1fr;
     }
 
-    /* Horizontal scroll carousel for mobile */
+    /* Swiper carousel for mobile */
+    .services-swiper,
+    .packages-swiper,
+    .whyus-swiper,
+    .gallery-swiper,
+    .reviews-swiper {
+        overflow: hidden;
+    }
+
     .services-grid,
     .packages-grid,
     .whyus-grid,
-    .gallery-grid {
+    .gallery-grid,
+    .reviews-grid {
         display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 12px;
-        padding-bottom: 10px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
     }
 
-    .services-grid::-webkit-scrollbar,
-    .packages-grid::-webkit-scrollbar,
-    .whyus-grid::-webkit-scrollbar,
-    .gallery-grid::-webkit-scrollbar {
-        display: none;
+    .services-swiper .swiper-slide,
+    .whyus-swiper .swiper-slide {
+        width: 70vw;
+        height: auto;
     }
 
-    .service-card {
-        min-width: 65vw;
-        max-width: 65vw;
-        flex-shrink: 0;
-        scroll-snap-align: start;
-        background: #f0f4ff;
-        border: 1px solid #d6e0f0;
-        min-height: 220px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    .packages-swiper .swiper-slide {
+        width: 70vw;
+        height: auto;
     }
 
-    .package-card {
-        min-width: 65vw;
-        max-width: 65vw;
-        flex-shrink: 0;
-        scroll-snap-align: start;
-    }
-
-    .package-img {
+    .gallery-swiper .swiper-slide {
+        width: 70vw;
         height: 180px;
     }
 
-    .whyus-item {
-        min-width: 65vw;
-        max-width: 65vw;
-        flex-shrink: 0;
-        scroll-snap-align: start;
-        background: #f0f4ff;
-        border-radius: var(--radius-md);
-        box-shadow: var(--shadow-sm);
-        border: 1px solid #d6e0f0;
-        min-height: 200px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
     .gallery-item {
-        min-width: 65vw;
-        max-width: 65vw;
-        flex-shrink: 0;
-        scroll-snap-align: start;
         height: 180px;
         border-radius: var(--radius-sm);
         overflow: hidden;
@@ -1083,28 +1052,31 @@ img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: var(--radius-sm);
     }
 
-    .review-card {
-        min-width: 70vw;
-        max-width: 70vw;
-        flex-shrink: 0;
-        scroll-snap-align: start;
+    .reviews-swiper .swiper-slide {
+        width: 75vw;
+        height: auto;
     }
 
-    .reviews-grid {
+    .service-card {
+        background: #f0f4ff;
+        border: 1px solid #d6e0f0;
+        height: 250px;
         display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        gap: 12px;
-        padding-bottom: 10px;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+        flex-direction: column;
+        justify-content: center;
     }
 
-    .reviews-grid::-webkit-scrollbar {
-        display: none;
+    .whyus-item {
+        background: #f0f4ff;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid #d6e0f0;
+        height: 220px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .contact-grid {
