@@ -203,12 +203,12 @@ document.addEventListener('DOMContentLoaded', () => {
 (function() {
     if (window.innerWidth > 768) return; // Only on mobile
 
-    const carousels = document.querySelectorAll('.services-grid, .packages-grid, .whyus-grid, .gallery-grid');
+    const carousels = document.querySelectorAll('.services-grid, .packages-grid, .whyus-grid, .gallery-grid, .reviews-grid');
 
     carousels.forEach(carousel => {
         let isPaused = false;
         let resumeTimeout;
-        const items = carousel.querySelectorAll('.service-card, .package-card, .whyus-item, .gallery-item');
+        const items = carousel.querySelectorAll('.service-card, .package-card, .whyus-item, .gallery-item, .review-card');
         let currentIndex = 0;
         const totalItems = items.length;
 
