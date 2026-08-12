@@ -8,6 +8,7 @@
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Josefin+Sans:wght@300;400;600&family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+Tamil:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -98,36 +99,38 @@
         <div class="container">
             <h2 class="section-title" data-i18n="services.title">Our Services</h2>
             <p class="section-subtitle" data-i18n="services.subtitle">Comprehensive travel solutions for every need</p>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-car"></i></div>
-                    <h3 data-i18n="services.rental.title">Rental Car Service</h3>
-                    <p data-i18n="services.rental.desc">Well-maintained cars available for rent with experienced drivers. Travel anywhere in India in comfort and style.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-umbrella-beach"></i></div>
-                    <h3 data-i18n="services.holiday.title">Customized Holidays</h3>
-                    <p data-i18n="services.holiday.desc">Tell us your dream destination, budget, and dates — we'll craft the perfect holiday package tailored just for you.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-user-tie"></i></div>
-                    <h3 data-i18n="services.driver.title">Acting Driver Service</h3>
-                    <p data-i18n="services.driver.desc">Own a car but want to enjoy the scenery? Hire our professional drivers to drive your car while you relax and enjoy the journey.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-om"></i></div>
-                    <h3 data-i18n="services.pilgrimage.title">Pilgrimage Tours</h3>
-                    <p data-i18n="services.pilgrimage.desc">Visit sacred temples and holy places across India with comfortable transport and well-planned itineraries.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-users"></i></div>
-                    <h3 data-i18n="services.family.title">Family & Group Tours</h3>
-                    <p data-i18n="services.family.desc">Special packages for families and groups. Multi-car arrangements, kid-friendly stops, and memories for everyone.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-briefcase"></i></div>
-                    <h3 data-i18n="services.corporate.title">Corporate Travel</h3>
-                    <p data-i18n="services.corporate.desc">Professional transport solutions for corporate events, airport transfers, and business travel needs.</p>
+            <div class="swiper services-swiper">
+                <div class="swiper-wrapper services-grid">
+                    <div class="swiper-slide service-card">
+                        <div class="service-icon"><i class="fas fa-car"></i></div>
+                        <h3 data-i18n="services.rental.title">Rental Car Service</h3>
+                        <p data-i18n="services.rental.desc">Well-maintained cars available for rent with experienced drivers. Travel anywhere in India in comfort and style.</p>
+                    </div>
+                    <div class="swiper-slide service-card">
+                        <div class="service-icon"><i class="fas fa-user-tie"></i></div>
+                        <h3 data-i18n="services.driver.title">Acting Driver Service</h3>
+                        <p data-i18n="services.driver.desc">Own a car but want to enjoy the scenery? Hire our professional drivers to drive your car while you relax and enjoy the journey.</p>
+                    </div>
+                    <div class="swiper-slide service-card">
+                        <div class="service-icon"><i class="fas fa-umbrella-beach"></i></div>
+                        <h3 data-i18n="services.holiday.title">Customized Holidays</h3>
+                        <p data-i18n="services.holiday.desc">Tell us your dream destination, budget, and dates — we'll craft the perfect holiday package tailored just for you.</p>
+                    </div>
+                    <div class="swiper-slide service-card">
+                        <div class="service-icon"><i class="fas fa-om"></i></div>
+                        <h3 data-i18n="services.pilgrimage.title">Pilgrimage Tours</h3>
+                        <p data-i18n="services.pilgrimage.desc">Visit sacred temples and holy places across India with comfortable transport and well-planned itineraries.</p>
+                    </div>
+                    <div class="swiper-slide service-card">
+                        <div class="service-icon"><i class="fas fa-users"></i></div>
+                        <h3 data-i18n="services.family.title">Family & Group Tours</h3>
+                        <p data-i18n="services.family.desc">Special packages for families and groups. Multi-car arrangements, kid-friendly stops, and memories for everyone.</p>
+                    </div>
+                    <div class="swiper-slide service-card">
+                        <div class="service-icon"><i class="fas fa-briefcase"></i></div>
+                        <h3 data-i18n="services.corporate.title">Corporate Travel</h3>
+                        <p data-i18n="services.corporate.desc">Professional transport solutions for corporate events, airport transfers, and business travel needs.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -138,8 +141,9 @@
         <div class="container">
             <h2 class="section-title" data-i18n="packages.title">Popular Tour Packages</h2>
             <p class="section-subtitle" data-i18n="packages.subtitle">Handpicked destinations for unforgettable experiences</p>
-            <div class="packages-grid">
-                <div class="package-card">
+            <div class="swiper packages-swiper">
+                <div class="swiper-wrapper packages-grid">
+                <div class="swiper-slide package-card">
                     <div class="package-img">
                         <img src="assets/kodai.jpg" alt="Ooty" loading="lazy">
                         <div class="package-badge" data-i18n="packages.popular">Popular</div>
@@ -150,7 +154,7 @@
                         <a href="#enquiryForm" class="btn btn-outline" data-i18n="packages.enquire">Enquire Now</a>
                     </div>
                 </div>
-                <div class="package-card">
+                <div class="swiper-slide package-card">
                     <div class="package-img">
                         <img src="assets/kerala.jpg" alt="Kerala" loading="lazy">
                         <div class="package-badge package-badge-hot" data-i18n="packages.trending">Trending</div>
@@ -161,7 +165,7 @@
                         <a href="#enquiryForm" class="btn btn-outline" data-i18n="packages.enquire">Enquire Now</a>
                     </div>
                 </div>
-                <div class="package-card">
+                <div class="swiper-slide package-card">
                     <div class="package-img">
                         <img src="assets/rameshwaram.jpg" alt="Rameshwaram" loading="lazy">
                     </div>
@@ -171,7 +175,7 @@
                         <a href="#enquiryForm" class="btn btn-outline" data-i18n="packages.enquire">Enquire Now</a>
                     </div>
                 </div>
-                <div class="package-card">
+                <div class="swiper-slide package-card">
                     <div class="package-img">
                         <img src="assets/pondi.jpg" alt="Pondicherry" loading="lazy">
                     </div>
@@ -181,7 +185,7 @@
                         <a href="#enquiryForm" class="btn btn-outline" data-i18n="packages.enquire">Enquire Now</a>
                     </div>
                 </div>
-                <div class="package-card">
+                <div class="swiper-slide package-card">
                     <div class="package-img">
                         <img src="assets/coorg.jpg" alt="Coorg" loading="lazy">
                     </div>
@@ -191,7 +195,7 @@
                         <a href="#enquiryForm" class="btn btn-outline" data-i18n="packages.enquire">Enquire Now</a>
                     </div>
                 </div>
-                <div class="package-card">
+                <div class="swiper-slide package-card">
                     <div class="package-img">
                         <img src="assets/thiruchendur.jpg" alt="Thiruchendur" loading="lazy">
                     </div>
@@ -200,6 +204,7 @@
                         <p class="package-price"><i class="fas fa-map-pin"></i> <span data-i18n="packages.thiruchendur.highlights">Murugan Temple, Vivekananda Rock, Sunrise Point</span></p>
                         <a href="#enquiryForm" class="btn btn-outline" data-i18n="packages.enquire">Enquire Now</a>
                     </div>
+                </div>
                 </div>
             </div>
             <p class="packages-note" data-i18n="packages.note"><i class="fas fa-info-circle"></i> Pricing is based on kilometers travelled. Contact us for a custom quote tailored to your trip.</p>
@@ -210,36 +215,38 @@
     <section class="section why-us">
         <div class="container">
             <h2 class="section-title" data-i18n="whyus.title">Why Choose Ganesh Holidays?</h2>
-            <div class="whyus-grid">
-                <div class="whyus-item">
+            <div class="swiper whyus-swiper">
+                <div class="swiper-wrapper whyus-grid">
+                    <div class="swiper-slide whyus-item">
                     <i class="fas fa-shield-alt"></i>
                     <h4 data-i18n="whyus.safe.title">Safe & Secure</h4>
                     <p data-i18n="whyus.safe.desc">Well-maintained vehicles with experienced, verified drivers for your safety.</p>
                 </div>
-                <div class="whyus-item">
+                <div class="swiper-slide whyus-item">
                     <i class="fas fa-hand-holding-usd"></i>
                     <h4 data-i18n="whyus.price.title">Transparent Pricing</h4>
                     <p data-i18n="whyus.price.desc">No hidden charges. What we quote is what you pay. Honest and upfront.</p>
                 </div>
-                <div class="whyus-item">
+                <div class="swiper-slide whyus-item">
                     <i class="fas fa-headset"></i>
                     <h4 data-i18n="whyus.support.title">24/7 Support</h4>
                     <p data-i18n="whyus.support.desc">Round-the-clock customer support. We're always a call away.</p>
                 </div>
-                <div class="whyus-item">
+                <div class="swiper-slide whyus-item">
                     <i class="fas fa-map-marked-alt"></i>
                     <h4 data-i18n="whyus.coverage.title">South India Experts</h4>
                     <p data-i18n="whyus.coverage.desc">We know every road in South India like the back of our hand. And yes, we drive anywhere in India too.</p>
                 </div>
-                <div class="whyus-item">
+                <div class="swiper-slide whyus-item">
                     <i class="fas fa-cogs"></i>
                     <h4 data-i18n="whyus.custom.title">Customizable Plans</h4>
                     <p data-i18n="whyus.custom.desc">Tailor your trip exactly the way you want. Flexible itineraries for every budget.</p>
                 </div>
-                <div class="whyus-item">
+                <div class="swiper-slide whyus-item">
                     <i class="fas fa-heart"></i>
                     <h4 data-i18n="whyus.care.title">We Care</h4>
                     <p data-i18n="whyus.care.desc">Your comfort is our priority. We go the extra mile to make you smile.</p>
+                </div>
                 </div>
             </div>
         </div>
@@ -250,24 +257,26 @@
         <div class="container">
             <h2 class="section-title" data-i18n="gallery.title">Travel Gallery</h2>
             <p class="section-subtitle" data-i18n="gallery.subtitle">Moments from our happy travellers</p>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1506461883276-594a12b11cf3?w=500&q=80" alt="Travel moment" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&q=80" alt="Travel moment" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=500&q=80" alt="Travel moment" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=500&q=80" alt="Travel moment" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=500&q=80" alt="Travel moment" loading="lazy">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=500&q=80" alt="Travel moment" loading="lazy">
+            <div class="swiper gallery-swiper">
+                <div class="swiper-wrapper gallery-grid">
+                    <div class="swiper-slide gallery-item">
+                        <img src="https://images.unsplash.com/photo-1506461883276-594a12b11cf3?w=500&q=80" alt="Travel moment" loading="lazy">
+                    </div>
+                    <div class="swiper-slide gallery-item">
+                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&q=80" alt="Travel moment" loading="lazy">
+                    </div>
+                    <div class="swiper-slide gallery-item">
+                        <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=500&q=80" alt="Travel moment" loading="lazy">
+                    </div>
+                    <div class="swiper-slide gallery-item">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=500&q=80" alt="Travel moment" loading="lazy">
+                    </div>
+                    <div class="swiper-slide gallery-item">
+                        <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=500&q=80" alt="Travel moment" loading="lazy">
+                    </div>
+                    <div class="swiper-slide gallery-item">
+                        <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=500&q=80" alt="Travel moment" loading="lazy">
+                    </div>
                 </div>
             </div>
         </div>
@@ -278,8 +287,9 @@
         <div class="container">
             <h2 class="section-title" data-i18n="reviews.title">Customer Experiences</h2>
             <p class="section-subtitle" data-i18n="reviews.subtitle">What our travellers say about us</p>
-            <div class="reviews-grid">
-                <div class="review-card">
+            <div class="swiper reviews-swiper">
+                <div class="swiper-wrapper reviews-grid">
+                <div class="swiper-slide review-card">
                     <div class="review-stars">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
@@ -292,7 +302,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="review-card">
+                <div class="swiper-slide review-card">
                     <div class="review-stars">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
@@ -305,7 +315,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="review-card">
+                <div class="swiper-slide review-card">
                     <div class="review-stars">
                         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                     </div>
@@ -317,6 +327,7 @@
                             <span data-i18n="reviews.r3.trip">Corporate Event, February 2025</span>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
             <div class="review-cta">
@@ -433,10 +444,14 @@
     </button>
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
+
 
 
 
