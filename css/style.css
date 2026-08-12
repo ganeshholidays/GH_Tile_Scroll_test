@@ -1073,7 +1073,7 @@ img {
         min-width: 60vw;
         flex-shrink: 0;
         scroll-snap-align: start;
-        aspect-ratio: 4/5;
+        aspect-ratio: 1/1;
     }
 
     .gallery-item img {
