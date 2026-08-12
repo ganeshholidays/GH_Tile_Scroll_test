@@ -1070,10 +1070,13 @@ img {
     }
 
     .gallery-item {
-        min-width: 60vw;
+        min-width: 65vw;
+        max-width: 65vw;
         flex-shrink: 0;
         scroll-snap-align: start;
-        aspect-ratio: 1/1;
+        height: 180px;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
     }
 
     .gallery-item img {
