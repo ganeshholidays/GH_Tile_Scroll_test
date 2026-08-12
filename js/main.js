@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// === MOBILE AUTO-SCROLL CAROUSEL ===
+// === MOBILE AUTO-SCROLL CAROUSEL (Infinite Loop) ===
 (function() {
     if (window.innerWidth > 768) return; // Only on mobile
 
@@ -209,23 +209,30 @@ document.addEventListener('DOMContentLoaded', () => {
         let isPaused = false;
         let resumeTimeout;
         const items = carousel.querySelectorAll('.service-card, .package-card, .whyus-item, .gallery-item, .review-card');
-        let currentIndex = 0;
-        const totalItems = items.length;
+        if (items.length === 0) return;
+
+        // Clone all items and append to create infinite illusion
+        items.forEach(item => {
+            const clone = item.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true');
+            carousel.appendChild(clone);
+        });
+
+        const itemWidth = items[0].offsetWidth + 12; // width + gap
+        const totalOriginalWidth = itemWidth * items.length;
 
         function doScroll() {
-            if (isPaused || totalItems === 0) return;
+            if (isPaused) return;
+            carousel.scrollBy({ left: itemWidth, behavior: 'smooth' });
 
-            currentIndex++;
-
-            if (currentIndex >= totalItems) {
-                // Jump instantly to first (no reverse animation)
-                carousel.scrollTo({ left: 0, behavior: 'instant' });
-                currentIndex = 0;
-            } else {
-                // Smooth scroll to next item
-                const itemWidth = items[0].offsetWidth + 12;
-                carousel.scrollTo({ left: itemWidth * currentIndex, behavior: 'smooth' });
-            }
+            // When we've scrolled past all original items, jump back silently
+            setTimeout(() => {
+                if (carousel.scrollLeft >= totalOriginalWidth) {
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollLeft = carousel.scrollLeft - totalOriginalWidth;
+                    carousel.style.scrollBehavior = '';
+                }
+            }, 500);
         }
 
         // Auto-scroll every 2 seconds
@@ -240,24 +247,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Pause on manual horizontal scroll (touch drag)
         let touchStartX = 0;
+        let touchStartY = 0;
         carousel.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
         });
 
         carousel.addEventListener('touchmove', (e) => {
             const touchDiffX = Math.abs(e.touches[0].clientX - touchStartX);
-            if (touchDiffX > 10) {
+            const touchDiffY = Math.abs(e.touches[0].clientY - touchStartY);
+            // Only pause if swiping MORE horizontally than vertically (intentional swipe)
+            if (touchDiffX > 30 && touchDiffX > touchDiffY * 1.5) {
                 isPaused = true;
                 clearTimeout(resumeTimeout);
                 resumeTimeout = setTimeout(() => { isPaused = false; }, 6000);
-            }
-        });
-
-        // Sync currentIndex when user manually scrolls
-        carousel.addEventListener('scrollend', () => {
-            if (items.length > 0) {
-                const itemWidth = items[0].offsetWidth + 12;
-                currentIndex = Math.round(carousel.scrollLeft / itemWidth);
             }
         });
 
