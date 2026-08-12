@@ -205,10 +205,10 @@ if (window.innerWidth <= 768) {
         slidesPerView: 'auto',
         spaceBetween: 12,
         loop: true,
+        centeredSlides: true,
         autoplay: {
-            delay: 2500,
-            disableOnInteraction: true,
-            pauseOnMouseEnter: true,
+            delay: 2200,
+            disableOnInteraction: false,
         },
         touchEventsTarget: 'wrapper',
         touchRatio: 1,
