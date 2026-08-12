@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Your Experience - Ganesh Holidays</title>
+    <meta name="description" content="Share your travel experience with Ganesh Holidays. Your feedback helps us serve you better.">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Noto+Sans+Tamil:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .review-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .review-container {
+            max-width: 580px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 45px 35px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        .review-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .review-header .icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+        .review-header h1 {
+            font-size: 22px;
+            color: var(--blue-dark);
+            margin-bottom: 8px;
+        }
+        .review-header p {
+            font-size: 14px;
+            color: var(--gray-500);
+        }
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .star-rating {
+            text-align: center;
+        }
+        .star-rating label {
+            font-size: 13px;
+            color: var(--gray-600);
+            display: block;
+            margin-bottom: 8px;
+        }
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+        .stars i {
+            font-size: 28px;
+            color: var(--gray-200);
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .stars i:hover,
+        .stars i.active {
+            color: var(--gold);
+            transform: scale(1.15);
+        }
+        .photo-upload {
+            border: 2px dashed var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .photo-upload:hover {
+            border-color: var(--gold);
+            background: #fffbf5;
+        }
+        .photo-upload i {
+            font-size: 28px;
+            color: var(--gray-300);
+            margin-bottom: 8px;
+        }
+        .photo-upload p {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+        .photo-upload small {
+            font-size: 11px;
+            color: var(--gray-300);
+        }
+        .review-lang {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .review-lang .lang-toggle {
+            background: #edf2f7;
+        }
+        .review-lang .lang-btn {
+            color: #4a5568;
+        }
+        .review-lang .lang-btn.active {
+            background: var(--gold);
+            color: #1a202c;
+        }
+        .review-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--gray-500);
+            margin-top: 15px;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: var(--blue-dark);
+            font-size: 13px;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="review-page">
+        <div class="review-container">
+            <div class="review-lang">
+                <div class="lang-toggle">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="ta">தமிழ்</button>
+                </div>
+            </div>
+
+            <div class="review-header">
+                <div class="icon" style="width:80px; height:80px; overflow:hidden; border-radius:12px; margin:0 auto;"><img src="assets/logo.jpg" alt="Ganesh Holidays" style="width:100%; height:100%; object-fit:cover; object-position:center 20%; transform:scale(1.6);"></div>
+                <h1 data-i18n="review.page.title">Thank You for Traveling with Us!</h1>
+                <p data-i18n="review.page.subtitle">We'd love to hear about your experience</p>
+            </div>
+
+            <form class="review-form" id="reviewForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" required placeholder=" " id="revName">
+                    <label for="revName" data-i18n="review.form.name">Your Name</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="tel" name="phone" placeholder=" " id="revPhone">
+                    <label for="revPhone" data-i18n="review.form.phone">Phone (optional)</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" name="destination" required placeholder=" " id="revDest">
+                    <label for="revDest" data-i18n="review.form.destination">Trip Destination</label>
+                </div>
+
+                <div class="star-rating">
+                    <label data-i18n="review.form.rating">Rate your experience</label>
+                    <div class="stars" id="starRating">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" name="rating" id="ratingValue" value="5">
+                </div>
+
+                <div class="form-group">
+                    <textarea name="feedback" rows="4" required placeholder=" " id="revFeedback"></textarea>
+                    <label for="revFeedback" data-i18n="review.form.feedback">Your Experience</label>
+                </div>
+
+                <div class="photo-upload" id="photoUpload">
+                    <i class="fas fa-camera"></i>
+                    <p data-i18n="review.form.photo">Upload a photo (with GH car or at destination)</p>
+                    <small data-i18n="review.form.photoHint">Optional • JPG/PNG • Max 5MB</small>
+                    <input type="file" name="photo" accept="image/*" style="display:none" id="photoInput">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full" data-i18n="review.form.submit">Submit Review</button>
+            </form>
+
+            <p class="review-note" data-i18n="review.form.note">Your review will be published on our website after verification. Thank you!</p>
+
+            <div class="back-link">
+                <a href="index.html" data-i18n="review.back">← Back to Ganesh Holidays</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/i18n.js"></script>
+    <script>
+        // Star rating interaction
+        const stars = document.querySelectorAll('#starRating i');
+        const ratingInput = document.getElementById('ratingValue');
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const rating = star.getAttribute('data-rating');
+                ratingInput.value = rating;
+
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+
+            star.addEventListener('mouseenter', () => {
+                const rating = star.getAttribute('data-rating');
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.style.color = 'var(--gold)';
+                    } else {
+                        s.style.color = '';
+                    }
+                });
+            });
+        });
+
+        document.getElementById('starRating').addEventListener('mouseleave', () => {
+            const currentRating = ratingInput.value;
+            stars.forEach((s, index) => {
+                s.style.color = '';
+                if (index < currentRating) {
+                    s.classList.add('active');
+                }
+            });
+        });
+
+        // Set all stars active by default (rating 5)
+        stars.forEach(s => s.classList.add('active'));
+
+        // Photo upload click
+        document.getElementById('photoUpload').addEventListener('click', () => {
+            document.getElementById('photoInput').click();
+        });
+
+        document.getElementById('photoInput').addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const fileName = e.target.files[0].name;
+                document.querySelector('#photoUpload p').textContent = '✅ ' + fileName;
+            }
+        });
+
+        // Form submission
+        document.getElementById('reviewForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you! Your review has been submitted and will appear on our website after approval.');
+            e.target.reset();
+            stars.forEach(s => s.classList.add('active'));
+            ratingInput.value = 5;
+            document.querySelector('#photoUpload p').textContent = 'Upload a photo (with GTT car or at destination)';
+        });
+    </script>
+</body>
+</html>
