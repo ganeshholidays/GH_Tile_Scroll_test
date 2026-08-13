@@ -1016,6 +1016,7 @@ img {
     .gallery-swiper,
     .reviews-swiper {
         overflow: hidden;
+        padding: 0 15px;
     }
 
     .services-grid,
@@ -1026,20 +1027,8 @@ img {
         display: flex;
     }
 
-    .services-swiper .swiper-slide,
-    .whyus-swiper .swiper-slide {
-        width: 100%;
-        height: auto;
-    }
-
-    .packages-swiper .swiper-slide {
-        width: 100%;
-        height: auto;
-    }
-
-    .gallery-swiper .swiper-slide {
-        width: 100%;
-        height: 200px;
+    .swiper-slide {
+        width: 100% !important;
     }
 
     .gallery-item {
@@ -1054,15 +1043,10 @@ img {
         object-fit: cover;
     }
 
-    .reviews-swiper .swiper-slide {
-        width: 100%;
-        height: auto;
-    }
-
     .service-card {
         background: #f0f4ff;
         border: 1px solid #d6e0f0;
-        height: 250px;
+        min-height: 230px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -1073,7 +1057,7 @@ img {
         border-radius: var(--radius-md);
         box-shadow: var(--shadow-sm);
         border: 1px solid #d6e0f0;
-        height: 220px;
+        min-height: 200px;
         display: flex;
         flex-direction: column;
         justify-content: center;
