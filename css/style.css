@@ -1028,22 +1028,22 @@ img {
 
     .services-swiper .swiper-slide,
     .whyus-swiper .swiper-slide {
-        width: 70vw;
+        width: 100%;
         height: auto;
     }
 
     .packages-swiper .swiper-slide {
-        width: 70vw;
+        width: 100%;
         height: auto;
     }
 
     .gallery-swiper .swiper-slide {
-        width: 70vw;
-        height: 180px;
+        width: 100%;
+        height: 200px;
     }
 
     .gallery-item {
-        height: 180px;
+        height: 200px;
         border-radius: var(--radius-sm);
         overflow: hidden;
     }
@@ -1055,7 +1055,7 @@ img {
     }
 
     .reviews-swiper .swiper-slide {
-        width: 75vw;
+        width: 100%;
         height: auto;
     }
 
