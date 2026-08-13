@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // === MOBILE SWIPER CAROUSELS ===
 if (window.innerWidth <= 768) {
     const swiperConfig = {
-        slidesPerView: 'auto',
+        slidesPerView: 1,
         spaceBetween: 12,
         loop: true,
         centeredSlides: true,
