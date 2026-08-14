@@ -1006,7 +1006,8 @@ img {
     .reviews-grid,
     .whyus-grid,
     .gallery-grid {
-        grid-template-columns: 1fr;
+        display: flex !important;
+        grid-template-columns: none;
     }
 
     /* Swiper carousel for mobile */
@@ -1024,11 +1025,12 @@ img {
     .whyus-grid,
     .gallery-grid,
     .reviews-grid {
-        display: flex;
+        display: flex !important;
     }
 
     .swiper-slide {
         width: 100% !important;
+        flex-shrink: 0;
     }
 
     .gallery-item {
