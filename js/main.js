@@ -199,34 +199,54 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// === MOBILE SWIPER CAROUSELS ===
+// === SWIPER CAROUSELS ===
+const swiperConfig = {
+    slidesPerView: 1,
+    spaceBetween: 12,
+    loop: true,
+    centeredSlides: true,
+    observer: true,
+    observeParents: true,
+    autoplay: {
+        delay: 2200,
+        disableOnInteraction: false,
+    },
+    touchEventsTarget: 'wrapper',
+    touchRatio: 1,
+    threshold: 17,
+};
+
 if (window.innerWidth <= 768) {
-    const swiperConfig = {
-        slidesPerView: 1,
-        spaceBetween: 12,
-        loop: true,
-        centeredSlides: true,
-        autoplay: {
-            delay: 2200,
-            disableOnInteraction: false,
-        },
-        touchEventsTarget: 'wrapper',
-        touchRatio: 1,
-        threshold: 20,
-    };
-
-    // Services carousel
+    // Mobile: All sections as carousels
     new Swiper('.services-swiper', { ...swiperConfig });
-
-    // Packages carousel
     new Swiper('.packages-swiper', { ...swiperConfig });
-
-    // Why Us carousel
     new Swiper('.whyus-swiper', { ...swiperConfig });
-
-    // Gallery carousel
-    new Swiper('.gallery-swiper', { ...swiperConfig });
-
-    // Reviews carousel
     new Swiper('.reviews-swiper', { ...swiperConfig });
 }
+
+// Gallery carousel (works on both mobile and desktop)
+fetch('assets/photos.json')
+    .then(res => res.json())
+    .then(photos => {
+        const wrapper = document.getElementById('galleryWrapper');
+        photos.forEach(photo => {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide gallery-item';
+            slide.innerHTML = `<img src="assets/gallery/${photo}" alt="Travel moment" loading="lazy">`;
+            wrapper.appendChild(slide);
+        });
+        new Swiper('.gallery-swiper', {
+            ...swiperConfig,
+            slidesPerView: 1,
+            breakpoints: {
+                769: {
+                    slidesPerView: 3,
+                    spaceBetween: 15,
+                    centeredSlides: false,
+                }
+            }
+        });
+    })
+    .catch(() => {
+        document.getElementById('galleryWrapper').innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Gallery loading...</p>';
+    });
