@@ -145,7 +145,7 @@
                 <div class="swiper-wrapper">
                 <div class="swiper-slide package-card">
                     <div class="package-img">
-                        <img src="assets/kodai.jpg" alt="Ooty" loading="lazy">
+                        <img src="assets/packages/kodai.jpg" alt="Ooty" loading="lazy">
                         <div class="package-badge" data-i18n="packages.popular">Popular</div>
                     </div>
                     <div class="package-info">
@@ -156,7 +156,7 @@
                 </div>
                 <div class="swiper-slide package-card">
                     <div class="package-img">
-                        <img src="assets/kerala.jpg" alt="Kerala" loading="lazy">
+                        <img src="assets/packages/kerala.jpg" alt="Kerala" loading="lazy">
                         <div class="package-badge package-badge-hot" data-i18n="packages.trending">Trending</div>
                     </div>
                     <div class="package-info">
@@ -167,7 +167,7 @@
                 </div>
                 <div class="swiper-slide package-card">
                     <div class="package-img">
-                        <img src="assets/rameshwaram.jpg" alt="Rameshwaram" loading="lazy">
+                        <img src="assets/packages/rameshwaram.jpg" alt="Rameshwaram" loading="lazy">
                     </div>
                     <div class="package-info">
                         <h3 data-i18n="packages.rameshwaram.title">Rameshwaram Pilgrimage</h3>
@@ -177,7 +177,7 @@
                 </div>
                 <div class="swiper-slide package-card">
                     <div class="package-img">
-                        <img src="assets/pondi.jpg" alt="Pondicherry" loading="lazy">
+                        <img src="assets/packages/pondi.jpg" alt="Pondicherry" loading="lazy">
                     </div>
                     <div class="package-info">
                         <h3 data-i18n="packages.pondy.title">Pondicherry & Mahabalipuram</h3>
@@ -187,7 +187,7 @@
                 </div>
                 <div class="swiper-slide package-card">
                     <div class="package-img">
-                        <img src="assets/coorg.jpg" alt="Coorg" loading="lazy">
+                        <img src="assets/packages/coorg.jpg" alt="Coorg" loading="lazy">
                     </div>
                     <div class="package-info">
                         <h3 data-i18n="packages.coorg.title">Coorg (Karnataka)</h3>
@@ -197,7 +197,7 @@
                 </div>
                 <div class="swiper-slide package-card">
                     <div class="package-img">
-                        <img src="assets/thiruchendur.jpg" alt="Thiruchendur" loading="lazy">
+                        <img src="assets/packages/thiruchendur.jpg" alt="Thiruchendur" loading="lazy">
                     </div>
                     <div class="package-info">
                         <h3 data-i18n="packages.thiruchendur.title">Thiruchendur & Kanyakumari</h3>
@@ -258,25 +258,8 @@
             <h2 class="section-title" data-i18n="gallery.title">Travel Gallery</h2>
             <p class="section-subtitle" data-i18n="gallery.subtitle">Moments from our happy travellers</p>
             <div class="swiper gallery-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide gallery-item">
-                        <img src="https://images.unsplash.com/photo-1506461883276-594a12b11cf3?w=500&q=80" alt="Travel moment" loading="lazy">
-                    </div>
-                    <div class="swiper-slide gallery-item">
-                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&q=80" alt="Travel moment" loading="lazy">
-                    </div>
-                    <div class="swiper-slide gallery-item">
-                        <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=500&q=80" alt="Travel moment" loading="lazy">
-                    </div>
-                    <div class="swiper-slide gallery-item">
-                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=500&q=80" alt="Travel moment" loading="lazy">
-                    </div>
-                    <div class="swiper-slide gallery-item">
-                        <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=500&q=80" alt="Travel moment" loading="lazy">
-                    </div>
-                    <div class="swiper-slide gallery-item">
-                        <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=500&q=80" alt="Travel moment" loading="lazy">
-                    </div>
+                <div class="swiper-wrapper" id="galleryWrapper">
+                    <!-- Dynamically loaded from photos.json -->
                 </div>
             </div>
         </div>
@@ -449,6 +432,7 @@
     <script src="js/main.js"></script>
 </body>
 </html>
+
 
 
 
