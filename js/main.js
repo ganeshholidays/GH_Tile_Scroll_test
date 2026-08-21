@@ -209,19 +209,37 @@ const swiperConfig = {
     observeParents: true,
     autoplay: {
         delay: 2200,
-        disableOnInteraction: false,
+        disableOnInteraction: true,
     },
     touchEventsTarget: 'wrapper',
     touchRatio: 1,
     threshold: 17,
 };
 
+// Pause autoplay for 5 seconds on touch, then resume
+function addPauseOnTouch(swiper) {
+    const el = swiper.el;
+    el.addEventListener('touchend', () => {
+        swiper.autoplay.stop();
+        setTimeout(() => {
+            swiper.autoplay.start();
+        }, 5000);
+    });
+}
+
 if (window.innerWidth <= 768) {
     // Mobile: All sections as carousels
-    new Swiper('.services-swiper', { ...swiperConfig });
-    new Swiper('.packages-swiper', { ...swiperConfig });
-    new Swiper('.whyus-swiper', { ...swiperConfig });
-    new Swiper('.reviews-swiper', { ...swiperConfig });
+    const servicesSwiper = new Swiper('.services-swiper', { ...swiperConfig });
+    addPauseOnTouch(servicesSwiper);
+
+    const packagesSwiper = new Swiper('.packages-swiper', { ...swiperConfig });
+    addPauseOnTouch(packagesSwiper);
+
+    const whyusSwiper = new Swiper('.whyus-swiper', { ...swiperConfig });
+    addPauseOnTouch(whyusSwiper);
+
+    const reviewsSwiper = new Swiper('.reviews-swiper', { ...swiperConfig });
+    addPauseOnTouch(reviewsSwiper);
 }
 
 // Gallery carousel (works on both mobile and desktop)
@@ -235,7 +253,7 @@ fetch('assets/photos.json')
             slide.innerHTML = `<img src="assets/gallery/${photo}" alt="Travel moment" loading="lazy">`;
             wrapper.appendChild(slide);
         });
-        new Swiper('.gallery-swiper', {
+        const gallerySwiper = new Swiper('.gallery-swiper', {
             ...swiperConfig,
             slidesPerView: 1,
             breakpoints: {
@@ -246,6 +264,7 @@ fetch('assets/photos.json')
                 }
             }
         });
+        addPauseOnTouch(gallerySwiper);
     })
     .catch(() => {
         document.getElementById('galleryWrapper').innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Gallery loading...</p>';
