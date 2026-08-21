@@ -77,16 +77,16 @@ img {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(255, 252, 245, 0.95);
+    background: rgba(235, 240, 250, 0.94);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(200, 180, 140, 0.25);
+    border-bottom: 1px solid rgba(180, 195, 220, 0.3);
     transition: var(--transition);
 }
 
 .navbar.scrolled {
-    background: rgba(255, 252, 245, 0.98);
-    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    background: rgba(235, 240, 250, 0.97);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.06);
 }
 
 .nav-container {
