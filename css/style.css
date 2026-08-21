@@ -92,7 +92,7 @@ img {
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 8px 12px;
+    padding: 4px 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -101,14 +101,14 @@ img {
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
 }
 
 .logo-icon {
     position: relative;
     flex-shrink: 0;
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     overflow: visible;
     border-radius: 0;
     background: none;
