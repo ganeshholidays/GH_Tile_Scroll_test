@@ -127,6 +127,7 @@ function doGet(e) {
       if (data[i][approvedIndex] &&
           data[i][approvedIndex].toString().toUpperCase() === 'YES') {
         reviews.push({
+          timestamp: data[i][0],
           name: data[i][1],
           destination: data[i][3],
           rating: data[i][4],
