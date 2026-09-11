@@ -3,6 +3,30 @@
    Animations, Navigation, Counters
    ============================================ */
 
+// === HERO: Auto-detect festival banner ===
+(function() {
+    const hero = document.querySelector('.hero');
+    const heroImg = document.querySelector('.hero-img');
+    if (!hero || !heroImg) return;
+
+    // Pick the right festival image based on screen width
+    var festivalFile = window.innerWidth <= 768 ? 'assets/festival-mobile.jpg' : 'assets/festival.jpg';
+
+    // Try loading festival image
+    var testImg = new Image();
+    testImg.onload = function() {
+        // Festival image exists — use it
+        heroImg.src = festivalFile;
+        hero.classList.add('festival-mode');
+    };
+    testImg.onerror = function() {
+        // No festival image — use hero.jpg (normal mode)
+        heroImg.src = 'assets/hero.jpg';
+        hero.classList.add('normal-mode');
+    };
+    testImg.src = festivalFile;
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // === NAVBAR SCROLL EFFECT ===
