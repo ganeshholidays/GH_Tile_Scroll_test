@@ -304,6 +304,20 @@ function generateStars(rating) {
 function createReviewCard(review) {
     const div = document.createElement('div');
     div.className = 'swiper-slide review-card';
+
+    // Format trip info: "Destination Trip, Month Year"
+    var tripInfo = review.destination + ' Trip';
+    if (review.timestamp) {
+        try {
+            var d = new Date(review.timestamp);
+            if (!isNaN(d.getTime())) {
+                var months = ['January','February','March','April','May','June',
+                              'July','August','September','October','November','December'];
+                tripInfo += ', ' + months[d.getMonth()] + ' ' + d.getFullYear();
+            }
+        } catch(e) {}
+    }
+
     div.innerHTML = `
         <div class="review-stars">
             ${generateStars(Number(review.rating) || 5)}
@@ -313,7 +327,7 @@ function createReviewCard(review) {
             <div class="review-avatar">${getInitials(review.name)}</div>
             <div>
                 <strong>${review.name}</strong>
-                <span>${review.destination}</span>
+                <span>${tripInfo}</span>
             </div>
         </div>
     `;
