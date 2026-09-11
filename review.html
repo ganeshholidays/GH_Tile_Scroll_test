@@ -146,7 +146,7 @@
                 <p data-i18n="review.page.subtitle">We'd love to hear about your experience</p>
             </div>
 
-            <form class="review-form" id="reviewForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <form class="review-form" id="reviewForm">
                 <div class="form-group">
                     <input type="text" name="name" required placeholder=" " id="revName">
                     <label for="revName" data-i18n="review.form.name">Your Name</label>
@@ -199,6 +199,10 @@
 
     <script src="js/i18n.js"></script>
     <script>
+        // === GOOGLE APPS SCRIPT URL ===
+        // Replace this with your actual Apps Script Web App URL after setup
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-KUQsQT21ieeWNWbKTj8OyLINmpC22OXIfVM3VmKEwPEM1FkbX4XTpqd12YRw6a6jEQ/exec';
+
         // Star rating interaction
         const stars = document.querySelectorAll('#starRating i');
         const ratingInput = document.getElementById('ratingValue');
@@ -250,18 +254,58 @@
         document.getElementById('photoInput').addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
                 const fileName = e.target.files[0].name;
-                document.querySelector('#photoUpload p').textContent = '✅ ' + fileName;
+                document.querySelector('#photoUpload p').textContent = '\u2705 ' + fileName;
             }
         });
 
-        // Form submission
+        // Form submission — sends data to Google Apps Script
         document.getElementById('reviewForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Thank you! Your review has been submitted and will appear on our website after approval.');
-            e.target.reset();
-            stars.forEach(s => s.classList.add('active'));
-            ratingInput.value = 5;
-            document.querySelector('#photoUpload p').textContent = 'Upload a photo (with GTT car or at destination)';
+
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+
+            const reviewData = {
+                name: document.getElementById('revName').value.trim(),
+                phone: document.getElementById('revPhone').value.trim(),
+                destination: document.getElementById('revDest').value.trim(),
+                rating: ratingInput.value,
+                feedback: document.getElementById('revFeedback').value.trim()
+            };
+
+            // Validate inputs
+            if (!reviewData.name || !reviewData.destination || !reviewData.feedback) {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reviewData)
+            })
+            .then(() => {
+                // Show success message
+                document.querySelector('.review-form').innerHTML = `
+                    <div style="text-align:center; padding:30px 0;">
+                        <div style="font-size:50px; margin-bottom:15px;">🙏</div>
+                        <h2 style="color:var(--blue-dark); margin-bottom:10px;">Thank You!</h2>
+                        <p style="color:var(--gray-500); font-size:14px;">Your review has been submitted successfully.<br>It will appear on our website after verification.</p>
+                        <a href="index.html" class="btn btn-primary" style="margin-top:20px; display:inline-block;">Back to Home</a>
+                    </div>
+                `;
+                document.querySelector('.review-note').style.display = 'none';
+            })
+            .catch(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                alert('Something went wrong. Please try again or contact us via WhatsApp.');
+            });
         });
     </script>
 </body>
