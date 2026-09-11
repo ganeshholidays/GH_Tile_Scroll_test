@@ -269,3 +269,80 @@ fetch('assets/photos.json')
     .catch(() => {
         document.getElementById('galleryWrapper').innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Gallery loading...</p>';
     });
+
+
+// === GOOGLE SHEETS REVIEWS ===
+// Replace this with your actual Apps Script Web App URL after setup
+const REVIEWS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-KUQsQT21ieeWNWbKTj8OyLINmpC22OXIfVM3VmKEwPEM1FkbX4XTpqd12YRw6a6jEQ/exec';
+
+function getInitials(name) {
+    if (!name) return '??';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length >= 2) {
+        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+    return parts[0].substring(0, 2).toUpperCase();
+}
+
+function generateStars(rating) {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+    let html = '';
+    for (let i = 0; i < fullStars; i++) {
+        html += '<i class="fas fa-star"></i>';
+    }
+    if (halfStar) {
+        html += '<i class="fas fa-star-half-alt"></i>';
+    }
+    for (let i = 0; i < emptyStars; i++) {
+        html += '<i class="far fa-star"></i>';
+    }
+    return html;
+}
+
+function createReviewCard(review) {
+    const div = document.createElement('div');
+    div.className = 'swiper-slide review-card';
+    div.innerHTML = `
+        <div class="review-stars">
+            ${generateStars(Number(review.rating) || 5)}
+        </div>
+        <p class="review-text">"${review.feedback}"</p>
+        <div class="review-author">
+            <div class="review-avatar">${getInitials(review.name)}</div>
+            <div>
+                <strong>${review.name}</strong>
+                <span>${review.destination}</span>
+            </div>
+        </div>
+    `;
+    return div;
+}
+
+// Fetch approved reviews from Google Sheet and append to reviews section
+if (REVIEWS_SCRIPT_URL && REVIEWS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL') {
+    fetch(REVIEWS_SCRIPT_URL)
+        .then(res => res.json())
+        .then(reviews => {
+            if (!reviews || !reviews.length) return;
+
+            const wrapper = document.querySelector('.reviews-swiper .swiper-wrapper');
+            if (!wrapper) return;
+
+            reviews.forEach(review => {
+                wrapper.appendChild(createReviewCard(review));
+            });
+
+            // Re-initialize swiper on mobile so new slides are included
+            if (window.innerWidth <= 768) {
+                const existingSwiper = document.querySelector('.reviews-swiper').swiper;
+                if (existingSwiper) {
+                    existingSwiper.update();
+                }
+            }
+        })
+        .catch(() => {
+            // Silently fail — hardcoded reviews still show
+        });
+}
