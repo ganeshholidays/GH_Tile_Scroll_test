@@ -451,13 +451,37 @@ if (REVIEWS_SCRIPT_URL && REVIEWS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL') {
                 wrapper.appendChild(createReviewCard(review));
             });
 
-            // Update the reviews swiper to include new slides
+            // Destroy and reinitialize reviews swiper to include new slides
             var reviewsEl = document.querySelector('.reviews-swiper');
             if (reviewsEl && reviewsEl.swiper) {
-                reviewsEl.swiper.update();
-                reviewsEl.swiper.loopDestroy();
-                reviewsEl.swiper.loopCreate();
+                reviewsEl.swiper.destroy(true, true);
             }
+            new Swiper('.reviews-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 12,
+                loop: true,
+                centeredSlides: true,
+                observer: true,
+                observeParents: true,
+                autoplay: {
+                    delay: 2200,
+                    disableOnInteraction: true,
+                },
+                touchEventsTarget: 'wrapper',
+                touchRatio: 1,
+                threshold: 17,
+                navigation: {
+                    nextEl: '.reviews-next',
+                    prevEl: '.reviews-prev',
+                },
+                breakpoints: {
+                    769: {
+                        slidesPerView: 3,
+                        spaceBetween: 20,
+                        centeredSlides: false,
+                    }
+                }
+            });
         })
         .catch(() => {
             // Silently fail — hardcoded reviews still show
