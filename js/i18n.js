@@ -16,9 +16,8 @@ const translations = {
         "tagline": "Your Journey, Our Commitment",
 
         // Hero
-        "hero.title": "Your Journey, Our Commitment",
-        "hero.tagline": "We Turn Miles Into Memories",
-        "hero.subtitle": "South India's trusted road travel partner",
+        "hero.title": "Explore All of India With Us",
+        "hero.subtitle": "South India's trusted road travel partner — comfortable car journeys across India",
         "hero.cta": "View Tour Packages",
 
         // About
@@ -173,9 +172,8 @@ const translations = {
         "tagline": "உங்கள் பயணம், எங்கள் உறுதி",
 
         // Hero
-        "hero.title": "உங்கள் பயணம், எங்கள் உறுதி",
-        "hero.tagline": "மைல்களை நினைவுகளாக மாற்றுகிறோம்",
-        "hero.subtitle": "தென் இந்தியாவின் நம்பகமான பயணத் தோழன்",
+        "hero.title": "எங்களுடன் இந்தியா முழுவதும் பயணியுங்கள்",
+        "hero.subtitle": "தென் இந்தியாவின் நம்பகமான பயணத் தோழன் — இந்தியா முழுவதும் வசதியான கார் பயணங்கள்",
         "hero.cta": "டூர் பேக்கேஜ்களைப் பார்க்க",
 
         // About
