@@ -372,7 +372,7 @@ img {
 .hero.normal-mode .hero-content {
     display: block;
     position: absolute;
-    top: 20px;
+    top: 8px;
     left: 0;
     right: 0;
     z-index: 2;
@@ -381,7 +381,7 @@ img {
 }
 
 .hero-title {
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-size: clamp(1.8rem, 4vw, 3rem);
     font-weight: 800;
     color: #ffffff;
     margin-bottom: 8px;
@@ -393,6 +393,8 @@ img {
     justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
+    column-gap: 12px;
+    row-gap: 4px;
 }
 
 .hero-small {
@@ -417,6 +419,10 @@ img {
     right: 0;
     height: 3px;
     background: #ffffff;
+}
+
+.hero-big.underline {
+    margin-right: 20px;
 }
 
 .hero-big.overline::before {
