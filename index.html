@@ -265,8 +265,31 @@
                     <!-- Dynamically loaded from photos.json -->
                 </div>
             </div>
+            <div class="gallery-cta">
+                <button class="btn btn-outline" id="viewAllGallery" data-i18n="gallery.viewAll">View All Photos</button>
+            </div>
         </div>
     </section>
+
+    <!-- Gallery Lightbox -->
+    <div class="gallery-lightbox" id="galleryLightbox">
+        <div class="lightbox-overlay" onclick="closeLightbox()"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            <div class="lightbox-grid" id="lightboxGrid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Image Viewer -->
+    <div class="image-viewer" id="imageViewer">
+        <div class="viewer-overlay" onclick="closeViewer()"></div>
+        <button class="viewer-close" onclick="closeViewer()">&times;</button>
+        <button class="viewer-prev" onclick="viewerNav(-1)"><i class="fas fa-chevron-left"></i></button>
+        <img class="viewer-img" id="viewerImg" src="" alt="Gallery photo">
+        <button class="viewer-next" onclick="viewerNav(1)"><i class="fas fa-chevron-right"></i></button>
+    </div>
 
     <!-- Reviews/Testimonials Section -->
     <section class="section reviews" id="reviews">
@@ -315,6 +338,8 @@
                     </div>
                 </div>
                 </div>
+                <div class="swiper-button-prev reviews-prev"></div>
+                <div class="swiper-button-next reviews-next"></div>
             </div>
             <div class="review-cta">
                 <a href="review.html" class="btn btn-outline" data-i18n="reviews.share">Share Your Experience</a>
