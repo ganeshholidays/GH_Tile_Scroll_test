@@ -372,7 +372,7 @@ img {
 .hero.normal-mode .hero-content {
     display: block;
     position: absolute;
-    top: 15px;
+    top: 30px;
     left: 0;
     right: 0;
     z-index: 2;
