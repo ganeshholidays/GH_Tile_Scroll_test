@@ -250,20 +250,44 @@ img {
 
 /* === VIDEO MODE: hero-video.mp4 exists === */
 .hero.video-mode {
-    height: auto;
-    max-height: none;
+    height: calc(100vh - 70px);
+    max-height: calc(100vh - 70px);
     overflow: hidden;
 }
 
 .hero.video-mode .hero-bg {
-    position: relative;
-    width: 100%;
+    position: absolute;
+    inset: 0;
 }
 
 .hero.video-mode .hero-video {
     display: block;
     width: 100%;
     height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hero.video-mode .hero-scroll {
+    display: block;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    cursor: pointer;
+    animation: bounceDown 2s infinite;
+}
+
+.hero.video-mode .hero-scroll i {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 24px;
+}
+
+@keyframes bounceDown {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
 }
 
 .hero.video-mode .hero-img {
@@ -1074,6 +1098,13 @@ img {
         width: 100%;
         height: auto;
         object-fit: contain;
+        position: relative;
+        top: auto;
+        left: auto;
+    }
+
+    .hero.video-mode .hero-scroll {
+        display: none;
     }
 
     .nav-menu {
