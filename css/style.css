@@ -836,23 +836,26 @@ img {
 
 .reviews-prev,
 .reviews-next {
-    color: var(--blue-dark) !important;
-    width: 35px !important;
-    height: 35px !important;
+    color: #ffffff !important;
+    background: var(--blue-dark) !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .reviews-prev::after,
 .reviews-next::after {
-    font-size: 18px !important;
+    font-size: 16px !important;
     font-weight: 800 !important;
 }
 
 .reviews-prev {
-    left: 0 !important;
+    left: -5px !important;
 }
 
 .reviews-next {
-    right: 0 !important;
+    right: -5px !important;
 }
 
 @media (max-width: 768px) {
