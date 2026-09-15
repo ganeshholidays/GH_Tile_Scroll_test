@@ -327,55 +327,7 @@ if (window.innerWidth <= 768) {
     addPauseOnTouch(whyusSwiper);
 }
 
-// Reviews carousel — works on both mobile and desktop
-const reviewsSwiperInstance = new Swiper('.reviews-swiper', {
-    ...swiperConfig,
-    slidesPerView: 1,
-    navigation: {
-        nextEl: '.reviews-next',
-        prevEl: '.reviews-prev',
-    },
-    breakpoints: {
-        769: {
-            slidesPerView: 3,
-            spaceBetween: 20,
-            centeredSlides: false,
-        }
-    }
-});
-addPauseOnTouch(reviewsSwiperInstance);
-
-// Gallery carousel (works on both mobile and desktop)
-fetch('assets/photos.json')
-    .then(res => res.json())
-    .then(photos => {
-        const wrapper = document.getElementById('galleryWrapper');
-        photos.forEach(photo => {
-            const slide = document.createElement('div');
-            slide.className = 'swiper-slide gallery-item';
-            slide.innerHTML = `<img src="assets/gallery/${photo}" alt="Travel moment" loading="lazy">`;
-            wrapper.appendChild(slide);
-        });
-        const gallerySwiper = new Swiper('.gallery-swiper', {
-            ...swiperConfig,
-            slidesPerView: 1,
-            breakpoints: {
-                769: {
-                    slidesPerView: 3,
-                    spaceBetween: 15,
-                    centeredSlides: false,
-                }
-            }
-        });
-        addPauseOnTouch(gallerySwiper);
-    })
-    .catch(() => {
-        document.getElementById('galleryWrapper').innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Gallery loading...</p>';
-    });
-
-
-// === GOOGLE SHEETS REVIEWS ===
-// Replace this with your actual Apps Script Web App URL after setup
+// Reviews carousel — fetch Google Sheet reviews first, then initialize swiper
 const REVIEWS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-KUQsQT21ieeWNWbKTj8OyLINmpC22OXIfVM3VmKEwPEM1FkbX4XTpqd12YRw6a6jEQ/exec';
 
 function getInitials(name) {
@@ -408,7 +360,6 @@ function createReviewCard(review) {
     const div = document.createElement('div');
     div.className = 'swiper-slide review-card';
 
-    // Format trip info: "Destination Trip, Month Year"
     var tripInfo = review.destination + ' Trip';
     if (review.timestamp) {
         try {
@@ -437,56 +388,77 @@ function createReviewCard(review) {
     return div;
 }
 
-// Fetch approved reviews from Google Sheet and append to reviews section
-if (REVIEWS_SCRIPT_URL && REVIEWS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL') {
-    fetch(REVIEWS_SCRIPT_URL)
-        .then(res => res.json())
-        .then(reviews => {
-            if (!reviews || !reviews.length) return;
-
-            const wrapper = document.querySelector('.reviews-swiper .swiper-wrapper');
-            if (!wrapper) return;
-
-            reviews.forEach(review => {
-                wrapper.appendChild(createReviewCard(review));
-            });
-
-            // Destroy and reinitialize reviews swiper to include new slides
-            var reviewsEl = document.querySelector('.reviews-swiper');
-            if (reviewsEl && reviewsEl.swiper) {
-                reviewsEl.swiper.destroy(true, true);
+function initReviewsSwiper() {
+    var inst = new Swiper('.reviews-swiper', {
+        ...swiperConfig,
+        slidesPerView: 1,
+        navigation: {
+            nextEl: '.reviews-next',
+            prevEl: '.reviews-prev',
+        },
+        breakpoints: {
+            769: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+                centeredSlides: false,
             }
-            new Swiper('.reviews-swiper', {
-                slidesPerView: 1,
-                spaceBetween: 12,
-                loop: true,
-                centeredSlides: true,
-                observer: true,
-                observeParents: true,
-                autoplay: {
-                    delay: 2200,
-                    disableOnInteraction: true,
-                },
-                touchEventsTarget: 'wrapper',
-                touchRatio: 1,
-                threshold: 17,
-                navigation: {
-                    nextEl: '.reviews-next',
-                    prevEl: '.reviews-prev',
-                },
-                breakpoints: {
-                    769: {
-                        slidesPerView: 3,
-                        spaceBetween: 20,
-                        centeredSlides: false,
+        }
+    });
+    addPauseOnTouch(inst);
+}
+
+// Fetch Google Sheet reviews, add to DOM, then init swiper
+(function() {
+    if (REVIEWS_SCRIPT_URL && REVIEWS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL') {
+        fetch(REVIEWS_SCRIPT_URL)
+            .then(function(res) { return res.json(); })
+            .then(function(reviews) {
+                if (reviews && reviews.length) {
+                    var wrapper = document.querySelector('.reviews-swiper .swiper-wrapper');
+                    if (wrapper) {
+                        reviews.forEach(function(review) {
+                            wrapper.appendChild(createReviewCard(review));
+                        });
                     }
                 }
+                initReviewsSwiper();
+            })
+            .catch(function() {
+                // Fetch failed — init swiper with hardcoded reviews only
+                initReviewsSwiper();
             });
-        })
-        .catch(() => {
-            // Silently fail — hardcoded reviews still show
+    } else {
+        initReviewsSwiper();
+    }
+})();
+
+// Gallery carousel (works on both mobile and desktop)
+fetch('assets/photos.json')
+    .then(res => res.json())
+    .then(photos => {
+        const wrapper = document.getElementById('galleryWrapper');
+        photos.forEach(photo => {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide gallery-item';
+            slide.innerHTML = `<img src="assets/gallery/${photo}" alt="Travel moment" loading="lazy">`;
+            wrapper.appendChild(slide);
         });
-}
+        const gallerySwiper = new Swiper('.gallery-swiper', {
+            ...swiperConfig,
+            slidesPerView: 1,
+            breakpoints: {
+                769: {
+                    slidesPerView: 3,
+                    spaceBetween: 15,
+                    centeredSlides: false,
+                }
+            }
+        });
+        addPauseOnTouch(gallerySwiper);
+    })
+    .catch(() => {
+        document.getElementById('galleryWrapper').innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Gallery loading...</p>';
+    });
 
 
 // === GALLERY LIGHTBOX ===
