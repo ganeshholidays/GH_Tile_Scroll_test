@@ -236,7 +236,8 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 70px;
+    padding-top: 70px;
+    margin-top: 0;
 }
 
 /* Hero video */
@@ -394,7 +395,8 @@ img {
 .hero.normal-mode {
     height: 100vh;
     min-height: 600px;
-    margin-top: 70px;
+    padding-top: 70px;
+    margin-top: 0;
 }
 
 .hero.normal-mode .hero-bg {
