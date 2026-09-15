@@ -371,7 +371,10 @@ img {
 
 .hero.normal-mode .hero-content {
     display: block;
-    position: relative;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
     z-index: 2;
     text-align: center;
     padding: 0 20px;
