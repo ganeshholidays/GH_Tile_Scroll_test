@@ -20,57 +20,71 @@
         hero.classList.add('festival-mode');
     };
     testFestival.onerror = function() {
-        // Step 2: Check if video exists
-        if (heroVideo) {
-            var videoLoaded = false;
-
-            heroVideo.addEventListener('canplay', function() {
-                if (videoLoaded) return;
-                videoLoaded = true;
-                hero.classList.add('video-mode');
-                heroVideo.play().catch(function() {
-                    hero.classList.remove('video-mode');
-                    loadHeroJpg();
-                });
-            }, { once: true });
-
-            var sourceEl = heroVideo.querySelector('source');
-            if (sourceEl) {
-                sourceEl.addEventListener('error', function() {
-                    if (videoLoaded) return;
-                    videoLoaded = true;
-                    loadHeroJpg();
-                }, { once: true });
-            }
-
-            heroVideo.load();
-
-            setTimeout(function() {
-                if (!videoLoaded && !hero.classList.contains('video-mode')) {
-                    videoLoaded = true;
-                    loadHeroJpg();
+        // Step 2: Check if video FILE exists by trying to fetch it
+        fetch('assets/hero/hero-video.mp4', { method: 'HEAD' })
+            .then(function(response) {
+                if (response.ok) {
+                    // Video file exists — try to play it
+                    loadVideo();
+                } else {
+                    // Video file not found (404) — go to hero-default.jpg
+                    loadHeroDefault();
                 }
-            }, 10000);
-        } else {
-            loadHeroDefault();
-        }
+            })
+            .catch(function() {
+                // Fetch failed — go to hero-default.jpg
+                loadHeroDefault();
+            });
     };
     testFestival.src = festivalFile;
 
-    // Step 3: hero.jpg — video fallback (same height/fit as video)
-    function loadHeroJpg() {
-        var testHero = new Image();
-        testHero.onload = function() {
-            heroImg.src = 'assets/hero/hero.jpg';
-            hero.classList.add('hero-fallback-mode');
-        };
-        testHero.onerror = function() {
+    // Step 2b: Try playing the video, fallback to hero.jpg after 10 sec
+    function loadVideo() {
+        if (!heroVideo) {
             loadHeroDefault();
-        };
-        testHero.src = 'assets/hero/hero.jpg';
+            return;
+        }
+
+        var videoLoaded = false;
+
+        heroVideo.addEventListener('canplay', function() {
+            if (videoLoaded) return;
+            videoLoaded = true;
+            hero.classList.add('video-mode');
+            heroVideo.play().catch(function() {
+                // Autoplay blocked — fall back to hero.jpg
+                hero.classList.remove('video-mode');
+                loadHeroJpg();
+            });
+        }, { once: true });
+
+        var sourceEl = heroVideo.querySelector('source');
+        if (sourceEl) {
+            sourceEl.addEventListener('error', function() {
+                if (videoLoaded) return;
+                videoLoaded = true;
+                loadHeroJpg();
+            }, { once: true });
+        }
+
+        heroVideo.load();
+
+        // Timeout — if video doesn't play in 10 seconds, show hero.jpg
+        setTimeout(function() {
+            if (!videoLoaded && !hero.classList.contains('video-mode')) {
+                videoLoaded = true;
+                loadHeroJpg();
+            }
+        }, 10000);
     }
 
-    // Step 4: hero-default.jpg — final fallback (full screen + text overlay)
+    // Step 3: hero.jpg — video fallback (same height/fit as video, no text)
+    function loadHeroJpg() {
+        heroImg.src = 'assets/hero/hero.jpg';
+        hero.classList.add('hero-fallback-mode');
+    }
+
+    // Step 4: hero-default.jpg — no video exists, full screen + blue shade + text
     function loadHeroDefault() {
         heroImg.src = 'assets/hero/hero-default.jpg';
         hero.classList.add('normal-mode');
