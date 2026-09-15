@@ -26,7 +26,7 @@
         if (heroVideo) {
             var videoLoaded = false;
 
-            heroVideo.addEventListener('canplaythrough', function() {
+            heroVideo.addEventListener('canplay', function() {
                 if (videoLoaded) return;
                 videoLoaded = true;
                 // Video can play — use video mode
@@ -53,14 +53,14 @@
             // Trigger video load
             heroVideo.load();
 
-            // Timeout fallback — if video doesn't load in 4 seconds, use image
+            // Timeout fallback — if video doesn't load in 10 seconds, use image
             setTimeout(function() {
                 if (!videoLoaded && !hero.classList.contains('video-mode')) {
                     videoLoaded = true;
                     heroImg.src = 'assets/hero.jpg';
                     hero.classList.add('normal-mode');
                 }
-            }, 4000);
+            }, 10000);
         } else {
             // No video element — use hero.jpg
             heroImg.src = 'assets/hero.jpg';
