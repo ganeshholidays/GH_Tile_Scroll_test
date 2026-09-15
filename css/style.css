@@ -828,6 +828,203 @@ img {
     color: var(--gray-500);
 }
 
+/* Reviews swiper arrows */
+.reviews-swiper {
+    position: relative;
+    padding: 0 45px;
+}
+
+.reviews-prev,
+.reviews-next {
+    color: var(--blue-dark) !important;
+    width: 35px !important;
+    height: 35px !important;
+}
+
+.reviews-prev::after,
+.reviews-next::after {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+}
+
+.reviews-prev {
+    left: 0 !important;
+}
+
+.reviews-next {
+    right: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .reviews-prev,
+    .reviews-next {
+        display: none !important;
+    }
+
+    .reviews-swiper {
+        padding: 0 15px;
+    }
+}
+
+/* Gallery View All Button */
+.gallery-cta {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Gallery Lightbox */
+.gallery-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-lightbox.active {
+    display: flex;
+}
+
+.lightbox-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+}
+
+.lightbox-content {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: var(--gray-600);
+    cursor: pointer;
+    z-index: 2;
+    line-height: 1;
+}
+
+.lightbox-close:hover {
+    color: var(--blue-dark);
+}
+
+.lightbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.lightbox-grid img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.lightbox-grid img:hover {
+    transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+    .lightbox-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lightbox-grid img {
+        height: 130px;
+    }
+
+    .lightbox-content {
+        width: 95%;
+        padding: 20px 15px;
+    }
+}
+
+/* Full Image Viewer */
+.image-viewer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-viewer.active {
+    display: flex;
+}
+
+.viewer-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+}
+
+.viewer-img {
+    position: relative;
+    z-index: 1;
+    max-width: 90%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.viewer-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.viewer-prev,
+.viewer-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: white;
+    font-size: 22px;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 2;
+    transition: background 0.2s;
+}
+
+.viewer-prev:hover,
+.viewer-next:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.viewer-prev {
+    left: 15px;
+}
+
+.viewer-next {
+    right: 15px;
+}
+
 .review-cta {
     text-align: center;
     margin-top: 40px;
@@ -1053,10 +1250,15 @@ img {
 
 /* === DESKTOP: Show swiper sections as grid === */
 @media (min-width: 769px) {
+    .services-swiper,
+    .packages-swiper,
+    .whyus-swiper {
+        overflow: visible !important;
+    }
+
     .services-swiper .swiper-wrapper,
     .packages-swiper .swiper-wrapper,
-    .whyus-swiper .swiper-wrapper,
-    .reviews-swiper .swiper-wrapper {
+    .whyus-swiper .swiper-wrapper {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
@@ -1064,8 +1266,7 @@ img {
 
     .services-swiper .swiper-slide,
     .packages-swiper .swiper-slide,
-    .whyus-swiper .swiper-slide,
-    .reviews-swiper .swiper-slide {
+    .whyus-swiper .swiper-slide {
         width: 100% !important;
     }
 }
@@ -1074,8 +1275,7 @@ img {
 @media (max-width: 1024px) {
     .services-swiper .swiper-wrapper,
     .packages-swiper .swiper-wrapper,
-    .whyus-swiper .swiper-wrapper,
-    .reviews-swiper .swiper-wrapper {
+    .whyus-swiper .swiper-wrapper {
         grid-template-columns: repeat(2, 1fr);
     }
 
