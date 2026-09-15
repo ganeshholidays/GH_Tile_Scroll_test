@@ -400,7 +400,10 @@ img {
 
 .hero.normal-mode .hero-bg {
     position: absolute;
-    inset: 0;
+    top: 70px;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .hero.normal-mode .hero-video {
