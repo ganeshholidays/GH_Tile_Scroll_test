@@ -192,7 +192,7 @@
             <p class="review-note" data-i18n="review.form.note">Your review will be published on our website after verification. Thank you!</p>
 
             <div class="back-link">
-                <a href="index.html" data-i18n="review.back">← Back to Ganesh Holidays</a>
+                <a href="/" data-i18n="review.back">← Back to Ganesh Holidays</a>
             </div>
         </div>
     </div>
@@ -286,17 +286,17 @@
             fetch(APPS_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'text/plain' },
                 body: JSON.stringify(reviewData)
             })
-            .then(() => {
+            .then(function() {
                 // Show success message
                 document.querySelector('.review-form').innerHTML = `
                     <div style="text-align:center; padding:30px 0;">
                         <div style="font-size:50px; margin-bottom:15px;">🙏</div>
                         <h2 style="color:var(--blue-dark); margin-bottom:10px;">Thank You!</h2>
                         <p style="color:var(--gray-500); font-size:14px;">Your review has been submitted successfully.<br>It will appear on our website after verification.</p>
-                        <a href="index.html" class="btn btn-primary" style="margin-top:20px; display:inline-block;">Back to Home</a>
+                        <a href="/" class="btn btn-primary" style="margin-top:20px; display:inline-block;">Back to Home</a>
                     </div>
                 `;
                 document.querySelector('.review-note').style.display = 'none';
