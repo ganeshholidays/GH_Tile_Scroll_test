@@ -4,70 +4,77 @@
    ============================================ */
 
 // === HERO: Auto-detect festival banner or video ===
-// Priority: festival.jpg > hero-video.mp4 > hero.jpg
+// Priority: festival.jpg > hero-video.mp4 (fallback: hero.jpg) > hero-default.jpg
 (function() {
     const hero = document.querySelector('.hero');
     const heroImg = document.querySelector('.hero-img');
     const heroVideo = document.querySelector('.hero-video');
     if (!hero || !heroImg) return;
 
-    // Pick the right festival image based on screen width
-    var festivalFile = window.innerWidth <= 768 ? 'assets/festival-mobile.jpg' : 'assets/festival.jpg';
+    var festivalFile = 'assets/hero/festival.jpg';
 
     // Step 1: Check if festival image exists
     var testFestival = new Image();
     testFestival.onload = function() {
-        // Festival image exists — use it (highest priority)
         heroImg.src = festivalFile;
         hero.classList.add('festival-mode');
     };
     testFestival.onerror = function() {
-        // No festival image — check if video exists
+        // Step 2: Check if video exists
         if (heroVideo) {
             var videoLoaded = false;
 
             heroVideo.addEventListener('canplay', function() {
                 if (videoLoaded) return;
                 videoLoaded = true;
-                // Video can play — use video mode
                 hero.classList.add('video-mode');
                 heroVideo.play().catch(function() {
-                    // Autoplay blocked — fall back to hero.jpg
                     hero.classList.remove('video-mode');
-                    heroImg.src = 'assets/hero.jpg';
-                    hero.classList.add('normal-mode');
+                    loadHeroJpg();
                 });
             }, { once: true });
 
-            // Handle video load failure
             var sourceEl = heroVideo.querySelector('source');
             if (sourceEl) {
                 sourceEl.addEventListener('error', function() {
                     if (videoLoaded) return;
                     videoLoaded = true;
-                    heroImg.src = 'assets/hero.jpg';
-                    hero.classList.add('normal-mode');
+                    loadHeroJpg();
                 }, { once: true });
             }
 
-            // Trigger video load
             heroVideo.load();
 
-            // Timeout fallback — if video doesn't load in 10 seconds, use image
             setTimeout(function() {
                 if (!videoLoaded && !hero.classList.contains('video-mode')) {
                     videoLoaded = true;
-                    heroImg.src = 'assets/hero.jpg';
-                    hero.classList.add('normal-mode');
+                    loadHeroJpg();
                 }
             }, 10000);
         } else {
-            // No video element — use hero.jpg
-            heroImg.src = 'assets/hero.jpg';
-            hero.classList.add('normal-mode');
+            loadHeroDefault();
         }
     };
     testFestival.src = festivalFile;
+
+    // Step 3: hero.jpg — video fallback (same height/fit as video)
+    function loadHeroJpg() {
+        var testHero = new Image();
+        testHero.onload = function() {
+            heroImg.src = 'assets/hero/hero.jpg';
+            hero.classList.add('hero-fallback-mode');
+        };
+        testHero.onerror = function() {
+            loadHeroDefault();
+        };
+        testHero.src = 'assets/hero/hero.jpg';
+    }
+
+    // Step 4: hero-default.jpg — final fallback (full screen + text overlay)
+    function loadHeroDefault() {
+        heroImg.src = 'assets/hero/hero-default.jpg';
+        hero.classList.add('normal-mode');
+    }
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
