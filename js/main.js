@@ -304,10 +304,25 @@ if (window.innerWidth <= 768) {
 
     const whyusSwiper = new Swiper('.whyus-swiper', { ...swiperConfig });
     addPauseOnTouch(whyusSwiper);
-
-    const reviewsSwiper = new Swiper('.reviews-swiper', { ...swiperConfig });
-    addPauseOnTouch(reviewsSwiper);
 }
+
+// Reviews carousel — works on both mobile and desktop
+const reviewsSwiperInstance = new Swiper('.reviews-swiper', {
+    ...swiperConfig,
+    slidesPerView: 1,
+    navigation: {
+        nextEl: '.reviews-next',
+        prevEl: '.reviews-prev',
+    },
+    breakpoints: {
+        769: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            centeredSlides: false,
+        }
+    }
+});
+addPauseOnTouch(reviewsSwiperInstance);
 
 // Gallery carousel (works on both mobile and desktop)
 fetch('assets/photos.json')
@@ -415,15 +430,101 @@ if (REVIEWS_SCRIPT_URL && REVIEWS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL') {
                 wrapper.appendChild(createReviewCard(review));
             });
 
-            // Re-initialize swiper on mobile so new slides are included
-            if (window.innerWidth <= 768) {
-                const existingSwiper = document.querySelector('.reviews-swiper').swiper;
-                if (existingSwiper) {
-                    existingSwiper.update();
-                }
+            // Update the reviews swiper to include new slides
+            var reviewsEl = document.querySelector('.reviews-swiper');
+            if (reviewsEl && reviewsEl.swiper) {
+                reviewsEl.swiper.update();
+                reviewsEl.swiper.loopDestroy();
+                reviewsEl.swiper.loopCreate();
             }
         })
         .catch(() => {
             // Silently fail — hardcoded reviews still show
         });
+}
+
+
+// === GALLERY LIGHTBOX ===
+var galleryPhotos = [];
+var currentViewerIndex = 0;
+
+function openLightbox() {
+    var lightbox = document.getElementById('galleryLightbox');
+    var grid = document.getElementById('lightboxGrid');
+    if (!lightbox || !grid || galleryPhotos.length === 0) return;
+
+    grid.innerHTML = '';
+    galleryPhotos.forEach(function(photo, index) {
+        var img = document.createElement('img');
+        img.src = 'assets/gallery/' + photo;
+        img.alt = 'Travel photo';
+        img.loading = 'lazy';
+        img.onclick = function() { openViewer(index); };
+        grid.appendChild(img);
+    });
+
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    var lightbox = document.getElementById('galleryLightbox');
+    if (lightbox) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function openViewer(index) {
+    currentViewerIndex = index;
+    var viewer = document.getElementById('imageViewer');
+    var img = document.getElementById('viewerImg');
+    if (!viewer || !img) return;
+
+    img.src = 'assets/gallery/' + galleryPhotos[index];
+    viewer.classList.add('active');
+}
+
+function closeViewer() {
+    var viewer = document.getElementById('imageViewer');
+    if (viewer) {
+        viewer.classList.remove('active');
+    }
+}
+
+function viewerNav(direction) {
+    currentViewerIndex += direction;
+    if (currentViewerIndex < 0) currentViewerIndex = galleryPhotos.length - 1;
+    if (currentViewerIndex >= galleryPhotos.length) currentViewerIndex = 0;
+
+    var img = document.getElementById('viewerImg');
+    if (img) {
+        img.src = 'assets/gallery/' + galleryPhotos[currentViewerIndex];
+    }
+}
+
+// Keyboard navigation for viewer
+document.addEventListener('keydown', function(e) {
+    var viewer = document.getElementById('imageViewer');
+    var lightbox = document.getElementById('galleryLightbox');
+
+    if (viewer && viewer.classList.contains('active')) {
+        if (e.key === 'ArrowLeft') viewerNav(-1);
+        if (e.key === 'ArrowRight') viewerNav(1);
+        if (e.key === 'Escape') closeViewer();
+    } else if (lightbox && lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+    }
+});
+
+// Load gallery photos for lightbox
+fetch('assets/photos.json')
+    .then(function(res) { return res.json(); })
+    .then(function(photos) { galleryPhotos = photos; })
+    .catch(function() {});
+
+// View All button
+var viewAllBtn = document.getElementById('viewAllGallery');
+if (viewAllBtn) {
+    viewAllBtn.addEventListener('click', openLightbox);
 }

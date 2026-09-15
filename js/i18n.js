@@ -111,6 +111,7 @@ const translations = {
         // Gallery
         "gallery.title": "Travel Gallery",
         "gallery.subtitle": "Moments from our happy travellers",
+        "gallery.viewAll": "View All Photos",
 
         // Reviews
         "reviews.title": "Customer Experiences",
@@ -267,6 +268,7 @@ const translations = {
         // Gallery
         "gallery.title": "பயண கேலரி",
         "gallery.subtitle": "எங்கள் மகிழ்ச்சியான பயணிகளின் தருணங்கள்",
+        "gallery.viewAll": "அனைத்து புகைப்படங்களையும் காண",
 
         // Reviews
         "reviews.title": "வாடிக்கையாளர் அனுபவங்கள்",
